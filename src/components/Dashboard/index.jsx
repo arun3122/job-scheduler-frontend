@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   // Step 4: List Jobs API
   const fetchJobs = async () => {
-    let url = 'https://job-scheduler-backend-fkyd.onrender.com/'; // Adjust if you use /api/jobs
+    let url = 'https://job-scheduler-backend-fkyd.onrender.com/jobs'; // Adjust if you use /api/jobs
     
     // Step 9: Filter Logic
     const params = new URLSearchParams();
