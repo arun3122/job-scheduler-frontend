@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Job Scheduler & Automation System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack Job Scheduling Dashboard that simulates a background task automation engine. This system allows users to create jobs, track their status through a lifecycle (Pending → Running → Completed), and automatically trigger external webhooks upon completion.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Live Demo & Repositories
 
-### `npm start`
+| Component    | Live Link                                                             | Source Code                                                       |
+| :----------- | :-------------------------------------------------------------------- | :---------------------------------------------------------------- |
+| **Frontend** | [View Live Dashboard](https://job-scheduler-frontend-nine.vercel.app) | [GitHub Repo](https://github.com/arun3122/job-scheduler-frontend) |
+| **Backend**  | [View API Base](https://job-scheduler-backend-fkyd.onrender.com)      | [GitHub Repo](https://github.com/arun3122/job-scheduler-backend)  |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> **Note:** The backend is hosted on Render's free tier. Please allow up to **60 seconds** for the server to wake up on the very first request.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
 
-### `npm run build`
+- **Framework:** React.js (Create React App)
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Deployment:** Vercel
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Framework:** Java Spring Boot (v3.x)
+- **Build Tool:** Maven
+- **Database:** H2 In-Memory Database
+- **Deployment:** Render (Dockerized)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> **Architectural Decision:** While the assignment suggested Node.js/MySQL, I opted for **Java Spring Boot** and **H2** to demonstrate strong type safety and robust threading capabilities for the job execution simulation. The H2 database was chosen to ensure the application is portable and requires zero configuration for the reviewer to run locally.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ✨ Key Features
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Create Jobs:** Users can define tasks with a Name, Priority (Low/Medium/High), and JSON Payload.
+2. **Dashboard:** A clean UI to view all jobs, capable of filtering by Status and Priority.
+3. **Job Simulation:**
+   - **Trigger:** Clicking "Run" initiates the process.
+   - **Processing:** The backend simulates a 3-second delay (representing heavy computation).
+   - **Completion:** Status updates to "Completed" automatically.
+4. **Webhook Integration:** Upon job completion, the system sends a real POST request to an external URL (e.g., `webhook.site`) containing the job results.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🏗 System Architecture
 
-## Learn More
+### Database Schema (Jobs Table)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Column      | Type      | Description                    |
+| :---------- | :-------- | :----------------------------- |
+| `id`        | BIGINT    | Primary Key (Auto-increment)   |
+| `taskName`  | VARCHAR   | Name of the task               |
+| `priority`  | VARCHAR   | Low, Medium, or High           |
+| `status`    | VARCHAR   | pending, running, completed    |
+| `payload`   | TEXT      | JSON data required for the job |
+| `createdAt` | TIMESTAMP | Creation time                  |
+| `updatedAt` | TIMESTAMP | Last update time               |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### API Endpoints
 
-### Code Splitting
+| Method | Endpoint       | Description                                        |
+| :----- | :------------- | :------------------------------------------------- |
+| `POST` | `/jobs`        | Create a new job                                   |
+| `GET`  | `/jobs`        | List all jobs (supports `?status=` & `?priority=`) |
+| `GET`  | `/jobs/:id`    | Get details of a specific job                      |
+| `POST` | `/run-job/:id` | Trigger job execution & webhook                    |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## ⚙️ Local Setup Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Prerequisites
 
-### Making a Progressive Web App
+- Node.js & npm
+- Java JDK 17+
+- Maven (optional, wrapper included)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 1. Backend Setup
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone [https://github.com/arun3122/job-scheduler-backend.git](https://github.com/arun3122/job-scheduler-backend.git)
+cd job-scheduler-backend
+./mvnw spring-boot:run
+```
