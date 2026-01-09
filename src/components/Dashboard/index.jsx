@@ -37,7 +37,7 @@ const Dashboard = () => {
       // Optimistic UI update: Set to running immediately
       setJobs(jobs.map(job => job.id === id ? { ...job, status: 'running' } : job));
 
-      const response = await fetch(`https://job-scheduler-backend-fkyd.onrender.com/jobs/${id}`, {
+      const response = await fetch(`https://job-scheduler-backend-fkyd.onrender.com/run-job/${id}`, {
         method: 'POST'
       });
       
