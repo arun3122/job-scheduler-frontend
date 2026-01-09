@@ -11,7 +11,7 @@ const JobDetail = () => {
     // Step 5: Fetch single job
     const fetchJob = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/jobs/${id}`);
+        const response = await fetch(`https://job-scheduler-backend-fkyd.onrender.com/jobs/${id}`);
         if(response.ok) {
           const data = await response.json();
           setJob(data);

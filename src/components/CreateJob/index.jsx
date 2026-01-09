@@ -33,7 +33,7 @@ const CreateJob = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/jobs', {
+      const response = await fetch('https://job-scheduler-backend-fkyd.onrender.com/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jobData)

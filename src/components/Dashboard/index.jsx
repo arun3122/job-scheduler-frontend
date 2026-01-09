@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   // Step 4: List Jobs API
   const fetchJobs = async () => {
-    let url = 'http://localhost:8080/jobs'; // Adjust if you use /api/jobs
+    let url = 'https://job-scheduler-backend-fkyd.onrender.com/'; // Adjust if you use /api/jobs
     
     // Step 9: Filter Logic
     const params = new URLSearchParams();
@@ -37,7 +37,7 @@ const Dashboard = () => {
       // Optimistic UI update: Set to running immediately
       setJobs(jobs.map(job => job.id === id ? { ...job, status: 'running' } : job));
 
-      const response = await fetch(`http://localhost:8080/run-job/${id}`, {
+      const response = await fetch(`https://job-scheduler-backend-fkyd.onrender.com/run-job/${id}`, {
         method: 'POST'
       });
       
